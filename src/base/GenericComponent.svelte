@@ -1,30 +1,46 @@
 <script>
+  import { getContext } from "svelte";
   export let data;
   export let value;
-
+  
+  let GenericComponent = getContext('GenericComponent');
+  
   let componentName;
+  let imported;
 
-  $: if (data.component != componentName) { componentName = data.component; }
+  $: if (data ) {
+    if (data.component != componentName) {
+      componentName = data.component;
+    }
+  } else {
+    componentName = undefined;
+  }
+
+  function getComponent(componentName) {
+    return import(`/components/${componentName}.js`).then(x => (imported = x).default);
+  }
+
+  export function getCurrentComponentClass() {
+    return imported;
+  }
 
 </script>
 
 <style>
-  .component-wrapper {
-    padding: 5px;
-    box-sizing: border-box;
-    border: 1px solid;
-  }
-  .component-wrapper>:global(*) {
-    width: 100%;
+  .empty {
+    padding: 10px;
+    text-align: center;
   }
 </style>
 
-<div class="component-wrapper">
-{#await import(`/components/${componentName}.js`)}
-  Betöltés ...
-{:then imported}
-  <svelte:component this={imported.default} {...data} bind:value></svelte:component>
-{:catch ex}
-  A komponens nem található a könyvtárban ({componentName})
-{/await}
-</div>
+{#if componentName}
+  {#await getComponent(componentName)}
+    Betöltés ...
+  {:then component}
+    <svelte:component this={component} {GenericComponent} {...data} bind:value></svelte:component>
+  {:catch ex}
+    A komponens nem található a könyvtárban ({componentName})
+  {/await}
+{:else}
+  <div class="empty">Nincs itt semmi :(</div>
+{/if}

@@ -1,5 +1,31 @@
+<script context="module">
+	// TODO
+	export function propertiesConfig(odata) {
+		return {
+			component: "List",
+			children: [
+				{ component: "NumberInput", label: "Sor", defaultValue: odata.children.length }
+			]
+		}
+	};
+	export function mutateData(odata, value) {
+		if (!value || !value[0]) return odata; 
+		let sor = value && value[0];
+		sor = +sor || 1;
+		if (sor < 1) sor = 1;
+		if (sor < odata.children.length) {
+			odata.children = odata.children.slice(0, sor);
+		} else {
+			while(sor > odata.children.length) {
+				odata.children.push(undefined);
+			}
+		}
+		return odata;
+	};
+</script>
+
 <script>
-	import GenericComponent from "../base/GenericComponent.svelte";
+	export let GenericComponent;
 
 	export let children = [];
 	export let value = [];

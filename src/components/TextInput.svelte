@@ -1,5 +1,7 @@
 <script>
+	export let label;
 	export let value;
 </script>
 
-<input type="text" bind:value />
+<label for="inp">{label}</label>
+<input name="inp" type="text" bind:value />

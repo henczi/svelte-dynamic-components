@@ -1,12 +1,13 @@
 <script>
-	import GenericComponent from "./base/GenericComponent.svelte";
+	import ViewRoot from "./base/ViewRoot.svelte";
+  import EditorProperties from "./base/EditorProperties.svelte";
 
   let data = {
     component: "List",
     children: [
-      { component: "TextInput" },
-      { component: "TextInput" },
-      { component: "TextInput" },
+      { component: "TextInput", label: "A" },
+      { component: "TextInput", label: "A" },
+      { component: "TextInput", label: "A" },
       {
         component: "List",
         children: [
@@ -48,19 +49,25 @@
     display: flex;
     flex-direction: column;
   }
+  .properties-panel {
+    height: 60vh;
+  }
   .form-area {
-    height: 70vh;
+    height: 20vh;
   }
   .value-area {
-    height: 30vh;
+    height: 20vh;
   }
 </style>
 
 <div class="wrapper">
   <div class="main">
-    <GenericComponent {data} bind:value />
+    <ViewRoot isEditor {data} bind:value />
   </div>
   <div class="sidebar">
+    <div class="properties-panel">
+      <EditorProperties></EditorProperties>
+    </div>
     <textarea
       class="form-area"
       value={JSON.stringify(data, undefined, '  ')}

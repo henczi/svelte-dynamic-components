@@ -1,4 +1,3 @@
-import GenericComponent from './base/GenericComponent.svelte';
 import App from './App.svelte';
 
 const app = new App({
@@ -8,5 +7,4 @@ const app = new App({
 	}
 });
 
-export { GenericComponent };
 export default app;
