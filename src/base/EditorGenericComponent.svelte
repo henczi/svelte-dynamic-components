@@ -53,10 +53,14 @@
 </style>
 
 <div class="component-wrapper" on:mouseover|stopPropagation={() => showSettings = true} on:mouseout={() => showSettings = false}>
+  {#if data && data.component}
   <GenericComponent {data} bind:value bind:this={sub} ></GenericComponent>
   <div class="settings-panel" style="display: {showSettings ? 'flex' : 'none'}" >
     <div on:click={onProperties}>Properties</div>
     &nbsp;&nbsp;|&nbsp;&nbsp;
     <div on:click={onEdit}>Edit</div>
   </div>
+  {:else}
+    <div class="empty">Nincs itt semmi :( ... <span on:click={onEdit}><i>Megadás</i></span></div>
+  {/if}
 </div>

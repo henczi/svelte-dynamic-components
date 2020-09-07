@@ -1,5 +1,5 @@
 <script>
-	import ViewRoot from "./base/ViewRoot.svelte";
+  import ViewRoot from "./base/ViewRoot.svelte";
   import EditorProperties from "./base/EditorProperties.svelte";
 
   let data = {
@@ -19,14 +19,19 @@
             ],
           },
         ],
-			},
-			{ component: "Button", text: "Gomb" },
+      },
+      { component: "Button", text: "Gomb" },
     ],
   };
 
-	let value;
-	
-	$: console.log(value)
+  let value;
+
+  $: console.log(value);
+
+  // TODO
+  function update() {
+    data = data;
+  }
 </script>
 
 <style>
@@ -50,10 +55,10 @@
     flex-direction: column;
   }
   .properties-panel {
-    height: 60vh;
+    height: 20vh;
   }
   .form-area {
-    height: 20vh;
+    height: 60vh;
   }
   .value-area {
     height: 20vh;
@@ -66,9 +71,10 @@
   </div>
   <div class="sidebar">
     <div class="properties-panel">
-      <EditorProperties></EditorProperties>
+      <EditorProperties />
     </div>
     <textarea
+      on:click={update}
       class="form-area"
       value={JSON.stringify(data, undefined, '  ')}
       on:change={(e) => (data = JSON.parse(e.target.value))} />

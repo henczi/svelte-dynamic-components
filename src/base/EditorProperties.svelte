@@ -8,21 +8,14 @@
 
     let callback;
 
-    let show = true;
-
-    selection.changed = async function(d, cb) {
-        value = undefined; // do not use old values
-        data = d;
+    selection.changed = async function(configData, cb) {
+        value = configData.value;
+        data = configData.data;
         callback = cb;
-        show = false;
-        await tick(); // TODO
-        show = true;
     }
 
     $: if (callback) callback(value);
 
 </script>
 
-{#if show}
 <ViewRoot {data} bind:value ></ViewRoot>
-{/if}
