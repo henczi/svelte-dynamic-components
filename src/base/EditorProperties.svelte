@@ -9,6 +9,12 @@
     let callback;
 
     selection.changed = async function(configData, cb) {
+        if (!configData) {
+            value = undefined;
+            data = undefined;
+            callback = undefined;
+            return;
+        }
         value = configData.value;
         data = configData.data;
         callback = cb;

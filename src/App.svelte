@@ -26,6 +26,8 @@
 
   let value;
 
+  let edit = true;
+
   $: console.log(value);
 
   // TODO
@@ -67,10 +69,17 @@
 
 <div class="wrapper">
   <div class="main">
-    <ViewRoot isEditor {data} bind:value />
+    {#await Promise.resolve( edit ) then isEditor}
+      <ViewRoot {isEditor} {data} bind:value />
+    {/await}
   </div>
   <div class="sidebar">
     <div class="properties-panel">
+      <label>
+        <input type="checkbox" bind:checked={edit} />
+        Editor?
+      </label>
+      <hr>
       <EditorProperties />
     </div>
     <textarea

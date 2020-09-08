@@ -26,6 +26,8 @@
       selection.changed(configData, function(editedValues) {
         data = componentClass.mutateData(data, editedValues);
       })
+    } else {
+      selection.changed(undefined);
     }
   }
 </script>
@@ -50,6 +52,10 @@
     cursor: pointer;
     width: 130px;
   }
+  .empty {
+    padding: 10px;
+    text-align: center;
+  }
 </style>
 
 <div class="component-wrapper" on:mouseover|stopPropagation={() => showSettings = true} on:mouseout={() => showSettings = false}>
@@ -61,6 +67,6 @@
     <div on:click={onEdit}>Edit</div>
   </div>
   {:else}
-    <div class="empty">Nincs itt semmi :( ... <span on:click={onEdit}><i>Megadás</i></span></div>
+    <div class="empty">Nincs itt semmi :( ... <span style="cursor: pointer" on:click={onEdit}><i>Megadás</i></span></div>
   {/if}
 </div>
