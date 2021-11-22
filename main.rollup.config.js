@@ -3,6 +3,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
+import moduleAlias from './module-alias';
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -29,12 +30,14 @@ function serve() {
 
 export default {
 	input: 'src/main.js',
+	makeAbsoluteExternalsRelative: 'ifRelativeSource',
 	output: {
 		sourcemap: true,
 		format: 'esm',
 		file: 'public/build/bundle.js'
 	},
 	plugins: [
+		moduleAlias,
 		svelte({
 			// enable run-time checks when not in production
 			dev: !production,

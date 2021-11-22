@@ -8,14 +8,7 @@
   let componentName;
   let imported;
 
-  $: if (data ) {
-    if (data.component != componentName) {
-      componentName = data.component;
-    }
-  } else {
-    componentName = undefined;
-  }
-
+  $: componentName = data && data.component;
   function getComponent(componentName) {
     return import(`/components/${componentName}.js`).then(x => (imported = x).default);
   }
@@ -34,7 +27,7 @@
 </style>
 
 {#if componentName}
-  {#await getComponent(componentName)}
+  {#await getComponent(componentName, data)} <!-- TODO: data? -->
     Betöltés ...
   {:then component}
     <svelte:component this={component} {GenericComponent} {...data} bind:value></svelte:component>

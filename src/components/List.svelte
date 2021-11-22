@@ -27,12 +27,11 @@
 
 <script>
 	export let GenericComponent;
-
 	export let children = [];
 	export let value = [];
 
 	// TODO: ??
-	$: if (children && value && value.length != children.length) value.length = children.length; // value length sync
+	// $: if (children && value && value.length != children.length) value.length = children.length; // value length sync
 </script>
 
 <style>

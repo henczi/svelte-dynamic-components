@@ -21,6 +21,16 @@
         ],
       },
       { component: "Button", text: "Gomb" },
+      {
+        component: "TestContextHost",
+        guest: {
+          component: "List",
+          children: [
+            { component: "TestContextGuest" },
+            { component: "TestContextGuest" },
+          ],
+        },
+      },
     ],
   };
 
@@ -65,11 +75,11 @@
   .value-area {
     height: 20vh;
   }
-</style>
-
-<div class="wrapper">
+  </style>
+  
+  <div class="wrapper">
   <div class="main">
-    {#await Promise.resolve( edit ) then isEditor}
+    {#await Promise.resolve(edit) then isEditor}
       <ViewRoot {isEditor} {data} bind:value />
     {/await}
   </div>
@@ -79,17 +89,19 @@
         <input type="checkbox" bind:checked={edit} />
         Editor?
       </label>
-      <hr>
+      <hr />
       <EditorProperties />
     </div>
     <textarea
       on:click={update}
       class="form-area"
-      value={JSON.stringify(data, undefined, '  ')}
-      on:change={(e) => (data = JSON.parse(e.target.value))} />
+      value={JSON.stringify(data, undefined, "  ")}
+      on:change={(e) => (data = JSON.parse(e.target.value))}
+    />
     <textarea
       class="value-area"
-      value={JSON.stringify(value, undefined, '  ')}
-      on:change={(e) => (value = JSON.parse(e.target.value))} />
+      value={JSON.stringify(value, undefined, "  ")}
+      on:change={(e) => (value = JSON.parse(e.target.value))}
+    />
   </div>
 </div>
