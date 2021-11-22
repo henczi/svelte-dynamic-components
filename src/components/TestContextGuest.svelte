@@ -1,7 +1,7 @@
 <script>
-    import { getContext } from 'svelte';
+    import { getValStore } from "././TestContextHost.svelte"; // Note: '././' -> preserve relative import
 
-    const val = getContext('TestContextValKey')
+    const val = getValStore();
 </script>
 
 <button on:click={() => $val++}>

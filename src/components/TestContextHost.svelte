@@ -1,11 +1,23 @@
-<script>
-    import { setContext } from 'svelte';
+<script context="module">
+    import { setContext, getContext } from 'svelte';
     import { writable } from 'svelte/store';
 
-    const val = writable(0);
+    const key = {};
 
-    setContext('TestContextValKey', val)
+    function createAndSetValStore() {
+        const val = writable(0);
+        setContext(key, val)
+        return val;
+    }
+    export function getValStore() {
+        return getContext(key);
+    }
+</script>
 
+<script>
+
+
+    const val = createAndSetValStore();
     export let GenericComponent;
     export let guest;
     export let value;
