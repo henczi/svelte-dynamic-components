@@ -10,7 +10,7 @@
 
   $: componentName = data && data.component;
   function getComponent(componentName) {
-    return import(`/components/${componentName}.js`).then(x => (imported = x).default);
+    return import(componentName.endsWith('.js') ? componentName : `/components/${componentName}.js`).then(x => (imported = x).default);
   }
 
   export function getCurrentComponentClass() {
@@ -27,7 +27,7 @@
 </style>
 
 {#if componentName}
-  {#await getComponent(componentName, data)} <!-- TODO: data? -->
+  {#await getComponent(componentName)} <!-- TODO: data? -->
     Betöltés ...
   {:then component}
     <svelte:component this={component} {GenericComponent} {...data} bind:value></svelte:component>

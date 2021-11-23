@@ -79,9 +79,9 @@
   
   <div class="wrapper">
   <div class="main">
-    {#await Promise.resolve(edit) then isEditor}
-      <ViewRoot {isEditor} {data} bind:value />
-    {/await}
+    {#key edit}
+      <ViewRoot isEditor={edit} {data} bind:value />
+    {/key}
   </div>
   <div class="sidebar">
     <div class="properties-panel">
